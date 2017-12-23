@@ -50,7 +50,7 @@ struct HungarianRings {
 	static HungarianRings decompress(uint64_t val) {
 		return HungarianRings(val);
 	}
-	COLOR getColor(const std::string &ring, int offset) {
+	COLOR getColor(const std::string &ring, int offset) const{
 		if (ring == "left") {
 			return COLOR((left >> (2 * offset)) & 3);
 		}
@@ -71,6 +71,11 @@ struct HungarianRings {
 	}
 	bool operator()(const HungarianRings &a, const HungarianRings&b) const {
 		return a.left == b.left && a.right == b.right;
+	}
+	HungarianRings &operator=(const HungarianRings &a) {
+		this->left = a.left;
+		this->right = a.right;
+		return *this;
 	}
 	bool valid() {
 		int color[4] = {};
